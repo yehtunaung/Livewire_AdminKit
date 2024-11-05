@@ -11,9 +11,10 @@ class User extends Component
     public $email;
     public $password;
     public $users;
+    public $isOpen = false; // Set default to false
 
     protected $rules = [
-        'name' => 'required|min:6',
+        'name' => 'required|min:3',
         'email' => 'required|email',
         'password' => 'required|min:6',
     ];
@@ -25,13 +26,40 @@ class User extends Component
 
     public function create()
     {
+        $this->resetInputFields();
+        $this->openModal();
+    }
 
-        $validatedData = $this->validate();
+    public function openModal()
+    {
+        $this->isOpen = true;
+    }
 
-        // \Log::info('Create method called', $validatedData);
-        User::create($validatedData); // Create a new user record
-        $this->reset(['name', 'email', 'password']); // Reset all input fields
-        session()->flash('success', 'Create Success.');
+    public function closeModal()
+    {
+        $this->isOpen = false;
+    }
+
+    public function resetInputFields()
+    {
+        $this->name = '';
+        $this->email = '';
+        $this->password = '';
+        $this->resetValidation();
+    }
+
+    public function saveUser()
+    {
+        $this->validate();
+
+        ModelsUser::create([
+            'name' => $this->name,
+            'email' => $this->email,
+            'password' => bcrypt($this->password),
+        ]);
+
+        $this->users = ModelsUser::all(); // Refresh the user list
+        $this->closeModal(); // Close modal after saving
     }
 
     public function render()
