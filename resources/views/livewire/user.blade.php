@@ -40,7 +40,7 @@
         </div>
 
         @if ($isOpen)
-            <div class="offcanvas offcanvas-end show w-100" tabindex="-1" id="offcanvasRight"
+            <div class="offcanvas offcanvas.show offcanvas-end show w-100" tabindex="-1" id="offcanvasRight"
                 style="width: 300px; max-width: 100%; position: absolute; top: 0; right: 0; height: 100%; border-left: 1px solid #ddd; background-color: white; z-index: 1050;"
                 aria-labelledby="offcanvasRightLabel">
                 <div class="offcanvas-header">

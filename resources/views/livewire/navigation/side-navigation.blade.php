@@ -14,15 +14,15 @@
                 </a>
             </li>
 
-            <li class="sidebar-item {{ Request::is('user') ? 'active' : '' }}" >
-                <a class="sidebar-link" href="{{ route('user') }}" >
+            <li class="sidebar-item {{ Request::is('admin/user') ? 'active' : '' }}" >
+                <a class="sidebar-link" href="{{ route('admin.user') }}" >
                     <i class="align-middle" data-feather="user"></i>
                     <span class="align-middle">User</span>
                 </a>
             </li>
 
-            <li class="sidebar-item {{ Request::is('posts') ? 'active' : '' }}" >
-                <a class="sidebar-link" href="{{ route('posts') }}" >
+            <li class="sidebar-item {{ Request::is('admin/posts') ? 'active' : '' }}" >
+                <a class="sidebar-link" href="{{ route('admin.posts') }}" >
                     <i class="align-middle" data-feather="user"></i>
                     <span class="align-middle">Post</span>
                 </a>
