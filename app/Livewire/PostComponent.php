@@ -40,8 +40,7 @@ class PostComponent extends Component
             'title' => $this->title,
             'body' => $this->body,
         ]);
-        session()->flash('success', 'Post created successfully.');
-        
+        $this->dispatch('success', ['message' => 'Post created successfully!']);
         $this->reset('title','body');
         $this->closeModal();
     }

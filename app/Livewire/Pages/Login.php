@@ -48,6 +48,7 @@ class Login extends Component
 
         // Login the user
         Auth::login($user);
+        $this->dispatch('success', ['message' => 'Welcome Back!']);
 
         return $this->redirect('/', navigate: true);
     }

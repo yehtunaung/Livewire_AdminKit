@@ -19,7 +19,7 @@
                 <a class="sidebar-link" href="{{ route('admin.user') }}" wire:navigate >
                     {{-- <i class="align-middle" data-feather="user"></i> --}}
                     <i class="bi bi-people-fill align-middle"></i>
-                    <span class="align-middle">User</span>,
+                    <span class="align-middle">User</span>
                 </a>
             </li>
 

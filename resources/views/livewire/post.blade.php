@@ -12,11 +12,11 @@
                 <div class="d-flex justify-content-end mb-3">
                     <button wire:click="create" class="btn btn-success">Create Post</button>
                 </div>
-                @if (session()->has('success'))
+                {{-- @if (session()->has('success'))
                     <div class="alert alert-success mt-4 ml-4 mr-4 col-4" role="alert">
                         {{ session('success') }}
                     </div>
-                @endif
+                @endif --}}
                 <table class="table table-bordered table-striped table-hover" id="data-table-1">
                     <thead class="text-center">
                         <th>#</th>
