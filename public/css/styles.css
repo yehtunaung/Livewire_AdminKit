@@ -1,0 +1,70 @@
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25%,
+    75% {
+        transform: translateX(7px);
+    }
+
+    50% {
+        transform: translateX(-7px);
+    }
+}
+
+.error-message {
+    color: red;
+    animation: shake 0.5s ease-in-out 1.5;
+    font-size: 12px;
+}
+
+
+
+
+.sidebar-cuz {
+    background-color: white !important;
+}
+
+.sidebar-content {
+    background-color: white !important;
+}
+
+.sidebar-item a.sidebar-link {
+    color: white !important;
+    background-color: white !important;
+    text-decoration: none;
+    transition: all 0.3s ease;
+
+}
+
+
+.sidebar-item.active a.sidebar-link,
+.sidebar-item a.sidebar-link:hover {
+    color: black !important;
+    background-color: #f0f0f0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+    border-radius: 8px;
+}
+
+
+.align-middle,
+.sidebar-header {
+    color: black !important;
+}
+
+.sidebar-item.active .sidebar-link:hover, .sidebar-item.active>.sidebar-link {
+    background: white !important;
+}
+
+.sidebar-item{
+    padding: 0px 12px 0px 12px;
+}
+.sidebar-item.active .sidebar-link:hover, .sidebar-item.active>.sidebar-link {
+    border-left-color: white;
+}
+
+

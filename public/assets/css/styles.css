@@ -17,3 +17,9 @@
     animation: shake 0.5s ease-in-out 1.5;
     font-size: 12px;
 }
+.sidebar-cuz {
+    background-color: white !important;
+}
+ .sidebar-content {
+    background-color: white !important;
+ }

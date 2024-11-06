@@ -16,9 +16,12 @@
     <link href="{{ asset('theme/css/app.css') }}" rel="stylesheet" />
 
 
-    <link href="{{ asset('assets/css/styles.css') }}" rel="stylesheet" />
+    {{-- <link href="{{ asset('assets/css/styles.css') }}" rel="stylesheet" /> --}}
+    <link href="{{ asset('css/styles.css') }}" rel="stylesheet" />
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+
 </head>
 
 <body>
@@ -50,7 +53,7 @@
     <script src="{{ asset('theme/js/app.js') }}"></script>
     <script src="{{ asset('assets/js/scripts.js') }}"></script>
 
-    @livewireScripts
+    @'livewireScripts'
 
 </body>
 
