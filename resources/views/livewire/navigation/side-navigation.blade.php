@@ -8,22 +8,25 @@
             <li class="sidebar-header">Pages</li>
             <li class="sidebar-item active">
             <li class="sidebar-item {{ Request::is('index') ? 'active' : '' }} " >
-                <a class="sidebar-link" href="{{ route('dashboard') }}" >
-                    <i class="align-middle" data-feather="sliders"></i>
+                <a class="sidebar-link" href="{{ route('dashboard') }}" wire:navigate>
+                    {{-- <i class="align-middle" data-feather="sliders"></i> --}}
+                    <i class="bi bi-binoculars-fill align-middle"></i>
                     <span class="align-middle">Dashboard</span>
                 </a>
             </li>
 
             <li class="sidebar-item {{ Request::is('admin/user') ? 'active' : '' }}" >
-                <a class="sidebar-link" href="{{ route('admin.user') }}" >
-                    <i class="align-middle" data-feather="user"></i>
-                    <span class="align-middle">User</span>
+                <a class="sidebar-link" href="{{ route('admin.user') }}" wire:navigate >
+                    {{-- <i class="align-middle" data-feather="user"></i> --}}
+                    <i class="bi bi-people-fill align-middle"></i>
+                    <span class="align-middle">User</span>,
                 </a>
             </li>
 
             <li class="sidebar-item {{ Request::is('admin/posts') ? 'active' : '' }}" >
-                <a class="sidebar-link" href="{{ route('admin.posts') }}" >
-                    <i class="align-middle" data-feather="user"></i>
+                <a class="sidebar-link" href="{{ route('admin.posts') }}" wire:navigate>
+                    {{-- <i class="align-middle" data-feather="user"></i> --}}
+                    <i class="bi bi-postcard-fill align-middle"></i>
                     <span class="align-middle">Post</span>
                 </a>
             </li>
