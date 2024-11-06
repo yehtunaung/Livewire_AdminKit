@@ -1,8 +1,9 @@
-<nav id="sidebar" class="sidebar js-sidebar">
-    <div class="sidebar-content js-simplebar">
-        <a class="sidebar-brand" href="{{ route('dashboard') }}" >
-            <span class="align-middle">AdminKit</span>
-        </a>
+<div>
+    <nav id="sidebar" class="sidebar js-sidebar">
+        <div class="sidebar-content">
+            <a class="sidebar-brand" href="{{ route('dashboard') }}" >
+                <span class="align-middle">AdminKit</span>
+            </a>
 
         <ul class="sidebar-nav">
             <li class="sidebar-header">Pages</li>
@@ -31,21 +32,26 @@
                 </a>
             </li>
 
-            <li class="sidebar-header">Auth</li>
+                <li class="sidebar-header">Auth</li>
 
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="{{ route('login') }}" >
-                    <i class="align-middle" data-feather="log-in"></i>
-                    <span class="align-middle">Sign In</span>
-                </a>
-            </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ route('login') }}" >
+                        <i class="align-middle" data-feather="log-in"></i>
+                        <span class="align-middle">Sign In</span>
+                    </a>
+                </li>
 
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="{{ route('register') }}" >
-                    <i class="align-middle" data-feather="user-plus"></i>
-                    <span class="align-middle">Sign Up</span>
-                </a>
-            </li>
-        </ul>
-    </div>
-</nav>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ route('register') }}" >
+                        <i class="align-middle" data-feather="user-plus"></i>
+                        <span class="align-middle">Sign Up</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
+
+
+</div>
