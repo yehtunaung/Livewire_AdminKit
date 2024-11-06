@@ -11,17 +11,18 @@ class User extends Component
     public $email;
     public $password;
     public $users;
-    public $isOpen = false; // Set default to false
+    public $isOpen = false; 
+    public $userId; 
 
     protected $rules = [
         'name' => 'required|min:3',
         'email' => 'required|email',
-        'password' => 'required|min:6',
+        'password' => 'nullable|min:6',
     ];
 
     public function mount()
     {
-        $this->users = ModelsUser::all(); // Fetch all users from the database
+        $this->users = ModelsUser::all(); 
     }
 
     public function create()
@@ -45,6 +46,7 @@ class User extends Component
         $this->name = '';
         $this->email = '';
         $this->password = '';
+        $this->userId = null; 
         $this->resetValidation();
     }
 
@@ -52,14 +54,45 @@ class User extends Component
     {
         $this->validate();
 
-        ModelsUser::create([
-            'name' => $this->name,
-            'email' => $this->email,
-            'password' => bcrypt($this->password),
-        ]);
+        if ($this->userId) {
+            
+            $user = ModelsUser::find($this->userId);
+            $user->update([
+                'name' => $this->name,
+                'email' => $this->email,
+                'password' => $this->password ? bcrypt($this->password) : $user->password,
+            ]);
+            session()->flash('success', 'User updated successfully.');
+        } else {
+           
+            ModelsUser::create([
+                'name' => $this->name,
+                'email' => $this->email,
+                'password' => bcrypt($this->password),
+            ]);
+            session()->flash('success', 'User created successfully.');
+        }
 
-        $this->users = ModelsUser::all(); // Refresh the user list
-        $this->closeModal(); // Close modal after saving
+        $this->users = ModelsUser::all(); 
+        $this->closeModal(); 
+    }
+
+    public function edit($id)
+    {
+        $user = ModelsUser::findOrFail($id);
+        $this->userId = $id;
+        $this->name = $user->name;
+        $this->email = $user->email;
+        $this->password =''; 
+        $this->openModal();
+    }
+
+    public function delete($id)
+    {
+        $user = ModelsUser::findOrFail($id);
+        $user->delete();
+        $this->users = ModelsUser::all(); 
+        session()->flash('success', 'User deleted successfully.');
     }
 
     public function render()
