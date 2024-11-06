@@ -7,6 +7,11 @@
                         <h3 class="card-title">User List</h3>
                     </div>
                 </div>
+                @if (session()->has('success'))
+                <div class="alert alert-success mt-4 ml-4 mr-4 col-4" role="alert">
+                    {{ session('success') }}
+                </div>
+            @endif
             </div>
             <div class="card-body">
                 <div class="row d-flex justify-content-end mr-1">
@@ -30,7 +35,12 @@
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
                                 <td>
-                                    <button class="btn btn-primary" wire:click="edit({{ $user->id }})">Edit</button>
+                                    <span wire:click="edit({{ $user->id }})" class="btn btn-primary">
+                                        <i class="bi bi-pencil"></i> Edit
+                                    </span>
+                                    <span wire:click="delete({{ $user->id }})" class="btn btn-danger">
+                                        <i class="bi bi-trash"></i> Delete
+                                    </span>
                                 </td>
                             </tr>
                         @endforeach
@@ -79,3 +89,4 @@
         @endif
     </div>
 </section>
+
