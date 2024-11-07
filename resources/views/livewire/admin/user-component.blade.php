@@ -9,14 +9,9 @@
                 </div>
             </div>
             <div class="card-body">
-                <div class="row d-flex mr-1" style="margin-bottom: 10px;">
-                    <div class="d-flex justify-content-end mb-3">
-                        <x-success-button wire:click="create" wire:loading.attr="disabled">
-                            {{ __('Create Post') }}
-                        </x-success-button>
-                    </div>
+                <div>
+                    <x-create-button title="User" function="create"></x-create-button>
                 </div>
-                
                 <table class="table table-bordered table-striped table-hover" id="data-table-1">
                     <thead class="text-center">
                         <th>Education Level</th>
@@ -43,45 +38,44 @@
             </div>
         </div>
 
-        @if ($isOpen)
-            <x-create-form-offcanvas submit="store">
-                <x-slot name="title">
-                    <h5 id="offcanvasRightLabel">{{ __('User Create') }}</h5>
-                </x-slot>
-                <x-slot name="form">
-                    <div class="mb-3">
-                        <label for="name" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="name" wire:model="name">
-                        @error('name')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
-                    </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" wire:model="email">
-                        @error('email')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
-                    </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" wire:model="password">
-                        @error('password')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
-                    </div>
-                </x-slot>
+        <x-create-form-offcanvas submit="store" :isOpen="$isOpen">
+            <x-slot name="title">
+                <h5 id="offcanvasRightLabel">{{ __('User Create') }}</h5>
+            </x-slot>
 
-                <x-slot name="actions">
-                    <button type="submit" class="btn btn-success mt-4">
-                        {{ __('Save') }}
-                    </button>
+            <x-slot name="form">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="name" wire:model="name">
+                    @error('name')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" wire:model="email">
+                    @error('email')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" wire:model="password">
+                    @error('password')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+            </x-slot>
 
-                    <button type="button" wire:click="closeModal"
-                        class="btn btn-primary mt-4">{{ __('Cancel') }}</button>
-                </x-slot>
+            <x-slot name="actions">
+                <button type="submit" class="btn btn-success mt-4">
+                    {{ __('Save') }}
+                </button>
 
-            </x-create-form-offcanvas>
-        @endif
+                <button type="button" wire:click="closeModal"
+                    class="btn btn-primary mt-4">{{ __('Cancel') }}</button>
+            </x-slot>
+
+        </x-create-form-offcanvas>
     </div>
 </section>

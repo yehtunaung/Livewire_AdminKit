@@ -9,14 +9,10 @@
                 </div>
             </div>
             <div class="card-body">
-                
-                <div class="row d-flex mr-1" style="margin-bottom: 10px;">
-                    <div class="d-flex justify-content-end mb-3">
-                        <x-success-button wire:click="create" wire:loading.attr="disabled">
-                            {{ __('Create Post') }}
-                        </x-success-button>
-                    </div>
-                </div>
+             <div>
+                <x-create-button title="Post" function="create"></x-create-button>
+
+             </div>
                 
                 <table class="table table-bordered table-striped table-hover" id="data-table-1">
                     <thead class="text-center">
@@ -58,8 +54,7 @@
             </div>
         </div>
 
-        @if ($isOpen)
-            <x-create-form-offcanvas submit="store">
+            <x-create-form-offcanvas submit="store"  :isOpen="$isOpen">
                 <x-slot name="title">
                     <h5 id="offcanvasRightLabel">{{ __('Post Details') }}</h5>
                 </x-slot>
@@ -95,7 +90,6 @@
                         class="btn btn-primary mt-4">{{ __('Cancel') }}</button>
                 </x-slot>
             </x-create-form-offcanvas>
-        @endif
     </div>
 </section>
 

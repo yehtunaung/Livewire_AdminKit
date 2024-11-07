@@ -1,9 +1,6 @@
-@props(['submit'])
+@props(['submit','isOpen'])
 
-<div class="offcanvas offcanvas-end show w-100" tabindex="-1" id="offcanvasRight"
-    style="width: 300px; max-width: 100%; position: absolute; top: 0; right: 0; height: 100%; border-left: 1px solid #ddd; background-color: white; z-index: 1050; 
-  transition: all ease-in-out 0.9s!important;"
-    aria-labelledby="offcanvasRightLabel">
+<div class="offcanvas {{ $isOpen ? 'show' : '' }}" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
 
     <div class="offcanvas-header">
         {{ $title }}
