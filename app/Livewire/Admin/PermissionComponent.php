@@ -14,7 +14,7 @@ class PermissionComponent extends Component
 
     protected $rules = [
         'title' => 'required|min:3',
-       
+
     ];
 
     public function mount()
@@ -41,7 +41,7 @@ class PermissionComponent extends Component
     public function resetInputFields()
     {
         $this->title = '';
-       $this->permissionId = null;
+        $this->permissionId = null;
         $this->resetValidation();
     }
 
@@ -50,22 +50,17 @@ class PermissionComponent extends Component
         $this->validate();
 
         if ($this->permissionId) {
-
             $permission = Permission::find($this->permissionId);
             $permission->update([
                 'title' => $this->title,
-               
             ]);
             $this->dispatch('success', ['message' => 'Permission Updated successfully!']);
         } else {
-
             Permission::create([
                 'title' => $this->title,
-               
             ]);
             $this->dispatch('success', ['message' => 'User created successfully!']);
         }
-
         $this->permissions = Permission::all();
         $this->closeModal();
     }
@@ -75,7 +70,7 @@ class PermissionComponent extends Component
         $permission = Permission::findOrFail($id);
         $this->permissionId = $id;
         $this->title = $permission->title;
-       $this->openModal();
+        $this->openModal();
     }
 
     public function delete($id)
@@ -91,4 +86,3 @@ class PermissionComponent extends Component
         return view('livewire.admin.permission-component');
     }
 }
-

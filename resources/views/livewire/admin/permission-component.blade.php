@@ -42,7 +42,7 @@
 
         <x-create-form-offcanvas submit="store" :isOpen="$isOpen">
             <x-slot name="title">
-                <h5 id="offcanvasRightLabel">{{ __('User Create') }}</h5>
+                <h5 id="offcanvasRightLabel">{{ __('Permission Create') }}</h5>
             </x-slot>
 
             <x-slot name="form">
@@ -53,21 +53,7 @@
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
-                {{-- <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" wire:model="email">
-                    @error('email')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="password" wire:model="password">
-                    @error('password')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </div> --}}
-            </x-slot>
+              </x-slot>
 
             <x-slot name="actions">
                 <button type="submit" class="btn btn-success mt-4">
