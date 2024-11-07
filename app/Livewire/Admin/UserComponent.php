@@ -11,8 +11,8 @@ class UserComponent extends Component
     public $email;
     public $password;
     public $users;
-    public $isOpen = false; 
-    public $userId; 
+    public $isOpen = false;
+    public $userId;
 
     protected $rules = [
         'name' => 'required|min:3',
@@ -22,7 +22,7 @@ class UserComponent extends Component
 
     public function mount()
     {
-        $this->users = ModelsUser::all(); 
+        $this->users = ModelsUser::all();
     }
 
     public function create()
@@ -46,35 +46,35 @@ class UserComponent extends Component
         $this->name = '';
         $this->email = '';
         $this->password = '';
-        $this->userId = null; 
+        $this->userId = null;
         $this->resetValidation();
     }
 
-    public function saveUser()
+    public function store()
     {
         $this->validate();
 
         if ($this->userId) {
-            
+
             $user = ModelsUser::find($this->userId);
             $user->update([
                 'name' => $this->name,
                 'email' => $this->email,
                 'password' => $this->password ? bcrypt($this->password) : $user->password,
             ]);
-            session()->flash('success', 'User updated successfully.');
+            $this->dispatch('success', ['message' => 'User Updated successfully!']);
         } else {
-           
+
             ModelsUser::create([
                 'name' => $this->name,
                 'email' => $this->email,
                 'password' => bcrypt($this->password),
             ]);
-            session()->flash('success', 'User created successfully.');
+            $this->dispatch('success', ['message' => 'User created successfully!']);
         }
 
-        $this->users = ModelsUser::all(); 
-        $this->closeModal(); 
+        $this->users = ModelsUser::all();
+        $this->closeModal();
     }
 
     public function edit($id)
@@ -83,7 +83,7 @@ class UserComponent extends Component
         $this->userId = $id;
         $this->name = $user->name;
         $this->email = $user->email;
-        $this->password =''; 
+        $this->password = '';
         $this->openModal();
     }
 
@@ -91,14 +91,12 @@ class UserComponent extends Component
     {
         $user = ModelsUser::findOrFail($id);
         $user->delete();
-        $this->users = ModelsUser::all(); 
+        $this->users = ModelsUser::all();
         session()->flash('success', 'User deleted successfully.');
     }
 
     public function render()
     {
         return view('livewire.admin.user-component');
-
     }
 }
-

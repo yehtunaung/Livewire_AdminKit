@@ -9,16 +9,15 @@
                 </div>
             </div>
             <div class="card-body">
-                <div class="d-flex justify-content-end mb-3">
-                    <x-success-button wire:click="create" wire:loading.attr="disabled" >
-                        {{ __('Create Post') }}
-                    </x-success-button>
-                </div>
-                {{-- @if (session()->has('success'))
-                    <div class="alert alert-success mt-4 ml-4 mr-4 col-4" role="alert">
-                        {{ session('success') }}
+                
+                <div class="row d-flex mr-1" style="margin-bottom: 10px;">
+                    <div class="d-flex justify-content-end mb-3">
+                        <x-success-button wire:click="create" wire:loading.attr="disabled">
+                            {{ __('Create Post') }}
+                        </x-success-button>
                     </div>
-                @endif --}}
+                </div>
+                
                 <table class="table table-bordered table-striped table-hover" id="data-table-1">
                     <thead class="text-center">
                         <th>#</th>
@@ -59,43 +58,45 @@
                 {{ $posts->links() }}
             </div>
         </div>
-        @if ($isOpen)
-            <div class="offcanvas offcanvas-end show w-100" tabindex="-1" id="offcanvasRight"
-                  style="width: 300px; max-width: 100%; position: absolute; top: 0; right: 0; height: 100%; border-left: 1px solid #ddd; background-color: white; z-index: 1050; 
-                transition: all ease-in-out 0.9s!important;"
-                aria-labelledby="offcanvasRightLabel">
-                <div class="offcanvas-header">
-                    <h5 id="offcanvasRightLabel">Post Details</h5>
-                </div>
-                <div class="offcanvas-body">
-                    <form wire:submit.prevent="store">
-                        <div class="form-group">
-                            <label for="title">Post Title</label>
-                            <input type="text" wire:model="title" class="form-control" id="title"
-                                placeholder="Enter post title">
-                            <span class="text-danger">
-                                @error('title')
-                                    {{ $message }}
-                                @enderror
-                            </span>
-                        </div>
-                        <div class="form-group">
-                            <label for="body">Post Body</label>
-                            <textarea wire:model="body" class="form-control" id="body" rows="4" placeholder="Enter post body"></textarea>
-                            <span class="text-danger">
-                                @error('body')
-                                    {{ $message }}
-                                @enderror
-                            </span>
-                        </div>
-                        <button type="submit" class="btn btn-success mt-4">
-                            Save
-                        </button>
 
-                        <button type="button" wire:click="closeModal" class="btn btn-primary mt-4">Close</button>
-                    </form>
-                </div>
-            </div>
+
+        @if ($isOpen)
+            <x-create-form-offcanvas submit="store">
+                <x-slot name="title">
+                    <h5 id="offcanvasRightLabel">{{ __('Post Details') }}</h5>
+                </x-slot>
+
+                <x-slot name="form">
+                    <div class="form-group">
+                        <label for="title">Post Title</label>
+                        <input type="text" wire:model="title" class="form-control" id="title"
+                            placeholder="Enter post title">
+                        <span class="text-danger">
+                            @error('title')
+                                {{ $message }}
+                            @enderror
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label for="body">Post Body</label>
+                        <textarea wire:model="body" class="form-control" id="body" rows="4" placeholder="Enter post body"></textarea>
+                        <span class="text-danger">
+                            @error('body')
+                                {{ $message }}
+                            @enderror
+                        </span>
+                    </div>
+                </x-slot>
+
+                <x-slot name="actions">
+                    <button type="submit" class="btn btn-success mt-4">
+                        {{ __('Save') }}
+                    </button>
+
+                    <button type="button" wire:click="closeModal"
+                        class="btn btn-primary mt-4">{{ __('Cancel') }}</button>
+                </x-slot>
+            </x-create-form-offcanvas>
         @endif
     </div>
 </section>
