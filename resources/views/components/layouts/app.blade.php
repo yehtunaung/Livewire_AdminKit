@@ -19,7 +19,12 @@
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet" />
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-
+    <style>
+        .offcanvas.show:not(.hiding),
+        .offcanvas.showing {
+            transform: rotate();
+        }
+    </style>
 
 </head>
 
@@ -43,7 +48,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
-    
+
     {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
@@ -53,7 +58,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
         integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous">
     </script> --}}
-    
+
     <script src="{{ asset('theme/plugins/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('theme/plugins/toastr/toastr.min.js') }}"></script>
     <script src="{{ asset('theme/js/app.js') }}"></script>
@@ -67,22 +72,22 @@
                 "positionClass": "toast-top-right"
             };
         });
-    
+
         // Listen for the 'success' event dispatched by Livewire
         window.addEventListener('success', event => {
-            toastr.success(event.detail[0].message);  // Show the success message
+            toastr.success(event.detail[0].message); // Show the success message
         });
 
         window.addEventListener('warning', event => {
-            console.log(event.detail);  // Check if the message is logged here
-            toastr.warning(event.detail[0].message);  // Show warning message
+            console.log(event.detail); // Check if the message is logged here
+            toastr.warning(event.detail[0].message); // Show warning message
         });
-    
+
         window.addEventListener('error', event => {
-            toastr.error(event.detail[0].message);  // Show error message
+            toastr.error(event.detail[0].message); // Show error message
         });
     </script>
-    
+
 </body>
 
 </html>
