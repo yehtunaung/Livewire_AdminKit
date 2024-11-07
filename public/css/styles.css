@@ -56,15 +56,39 @@
     color: black !important;
 }
 
-.sidebar-item.active .sidebar-link:hover, .sidebar-item.active>.sidebar-link {
+.sidebar-item.active .sidebar-link:hover,
+.sidebar-item.active>.sidebar-link {
     background: white !important;
 }
 
-.sidebar-item{
-    padding: 0px 12px 0px 12px;
+.sidebar-item {
+    padding: 5px 12px 0px 12px;
 }
-.sidebar-item.active .sidebar-link:hover, .sidebar-item.active>.sidebar-link {
+
+.sidebar-item.active .sidebar-link:hover,
+.sidebar-item.active>.sidebar-link {
     border-left-color: white;
 }
 
+/* Offcanvas base styling */
+.offcanvas {
+    width: 1260px;
+    max-width: 100%;
+    position: fixed;
+    top: 66px;
+    right: 0;
+    height: 100%;
+    border-left: 1px solid #ddd;
+    background-color: white;
+    z-index: 1050;
+    transform: translateX(100%);
+    /* Initial hidden state */
+    transition: transform 0.4s ease-out;
+    /* Smooth transition */
+}
 
+/* Show the offcanvas */
+.offcanvas.show {
+    transform: translateX(0);
+    /* Visible state */
+}

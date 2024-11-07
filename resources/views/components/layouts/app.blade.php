@@ -25,6 +25,7 @@
             transform: rotate();
         }
     </style>
+    @livewireStyles
 
 </head>
 
