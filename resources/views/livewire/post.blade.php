@@ -10,7 +10,9 @@
             </div>
             <div class="card-body">
                 <div class="d-flex justify-content-end mb-3">
-                    <button wire:click="create" class="btn btn-success">Create Post</button>
+                    <x-success-button wire:click="create" wire:loading.attr="disabled" >
+                        {{ __('Create Post') }}
+                    </x-success-button>
                 </div>
                 {{-- @if (session()->has('success'))
                     <div class="alert alert-success mt-4 ml-4 mr-4 col-4" role="alert">

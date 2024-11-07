@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Admin;
 
 use App\Models\User as ModelsUser;
 use Livewire\Component;
 
-class User extends Component
+class UserComponent extends Component
 {
     public $name;
     public $email;
@@ -97,6 +97,8 @@ class User extends Component
 
     public function render()
     {
-        return view('livewire.user');
+        return view('livewire.admin.user-component');
+
     }
 }
+
