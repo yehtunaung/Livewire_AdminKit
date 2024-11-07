@@ -14,6 +14,12 @@
                     <span class="align-middle">Dashboard</span>
                 </a>
             </li>
+            <li class="sidebar-item {{ Request::is('admin/permission') ? 'active' : '' }}" >
+                <a class="sidebar-link" href="{{ route('admin.permission') }}" >
+                    <i class="bi bi-postcard-fill align-middle"></i>
+                    <span class="align-middle">Permission</span>
+                </a>
+            </li>
 
             <li class="sidebar-item {{ Request::is('admin/user') ? 'active' : '' }}" >
                 <a class="sidebar-link" href="{{ route('admin.user') }}"  >
