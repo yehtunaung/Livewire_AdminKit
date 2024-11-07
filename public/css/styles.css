@@ -31,12 +31,13 @@
 
 .sidebar-item a.sidebar-link {
     color: black !important;
-    background-color: white !important;
+    /* background-color: white !important; */
+    background-color: rgb(221 221 221 / 33%) !important;
+    border-radius: 7px;
     text-decoration: none;
     transition: all 0.3s ease;
 
 }
-
 
 .sidebar-item.active a.sidebar-link,
 .sidebar-item a.sidebar-link:hover {
@@ -81,23 +82,34 @@
 
 /* Offcanvas base styling */
 .offcanvas {
-    width: 1260px;
+    /* width: 1260px;
     max-width: 100%;
     position: fixed;
     top: 66px;
     right: 0;
-    height: 100%;
+    height: 100%; */
     border-left: 1px solid #ddd;
     background-color: white;
     z-index: 1050;
     transform: translateX(100%);
-    /* Initial hidden state */
-    transition: transform 0.4s ease-out;
-    /* Smooth transition */
+    transition: transform 0.5s ease-out;
 }
 
-/* Show the offcanvas */
 .offcanvas.show {
     transform: translateX(0);
-    /* Visible state */
+}
+
+.offcanvas.hiding {
+    transform: translateX(100%);
+    transition: transform 1.5s ease-in-out;
+    pointer-events: none;
+}
+
+#sidebar {
+    /* width: 250px; */
+    /* position: fixed !important; */
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1030;
 }
