@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Admin\RoleComponent;
 use App\Livewire\Admin\UserComponent;
 use App\Livewire\Dashboard;
 use App\Livewire\Pages\Login;
@@ -13,4 +14,6 @@ Route::get('/register', Register::class)->name('register');
 Route::group(['prefix' => 'admin', 'as' => 'admin.',  'middleware' => ['auth']], function () {
     Route::get('/user', UserComponent::class)->name('user');
     Route::get('/posts', PostComponent::class)->name('posts');
+    Route::get('/roles', RoleComponent::class)->name('roles');
+
 });
