@@ -12,6 +12,7 @@
                 <div>
                     <x-create-button title="User" function="create"></x-create-button>
                 </div>
+                
                 <table class="table table-bordered table-striped table-hover" id="data-table-1">
                     <thead class="text-center">
                         <th>Education Level</th>

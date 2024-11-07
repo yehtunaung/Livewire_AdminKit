@@ -10,7 +10,7 @@
             </div>
             <div class="card-body">
              <div>
-                <x-create-button title="Post" function="create"></x-create-button>
+                <x-create-button title="Post" function="create" ></x-create-button>
 
              </div>
                 
@@ -92,31 +92,3 @@
             </x-create-form-offcanvas>
     </div>
 </section>
-
-
-
-
-{{-- Testing  --}}
-
-  <!-- Offcanvas for Post Details -->
-  {{-- <div class="offcanvas {{ $isOpen ? 'show' : '' }}" id="offcanvasRight">
-    <div class="offcanvas-header">
-        <h5 id="offcanvasRightLabel">Post Details</h5>
-    </div>
-    <div class="offcanvas-body">
-        <form wire:submit.prevent="store">
-            <div class="form-group">
-                <label for="title">Post Title</label>
-                <input type="text" wire:model="title" class="form-control" id="title" placeholder="Enter post title">
-                @error('title') <span class="text-danger">{{ $message }}</span> @enderror
-            </div>
-            <div class="form-group">
-                <label for="body">Post Body</label>
-                <textarea wire:model="body" class="form-control" id="body" rows="4" placeholder="Enter post body"></textarea>
-                @error('body') <span class="text-danger">{{ $message }}</span> @enderror
-            </div>
-            <button type="submit" class="btn btn-success mt-4">Save</button>
-            <button type="button" wire:click="closeModal" class="btn btn-primary mt-4">Close</button>
-        </form>
-    </div>
-</div> --}}

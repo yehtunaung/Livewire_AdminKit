@@ -17,6 +17,9 @@ class PostComponent extends Component
 
     #[Rule('required|min:3')]
     public $body;
+
+    public $multi = [];
+
     public $isOpen = 0;
 
     public function create()
@@ -47,7 +50,7 @@ class PostComponent extends Component
     public function render()
     {
         return view('livewire.post',[
-            'posts' => Post::paginate(5),
+            'posts' => Post::paginate(50),
         ]);
     }
 }

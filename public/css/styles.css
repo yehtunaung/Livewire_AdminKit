@@ -21,9 +21,6 @@
     font-size: 12px;
 }
 
-
-
-
 .sidebar-cuz {
     background-color: white !important;
 }
@@ -33,7 +30,7 @@
 }
 
 .sidebar-item a.sidebar-link {
-    color: white !important;
+    color: black !important;
     background-color: white !important;
     text-decoration: none;
     transition: all 0.3s ease;
@@ -54,6 +51,18 @@
 .align-middle,
 .sidebar-header {
     color: black !important;
+}
+.sidebar [data-bs-toggle=collapse]:after {
+    border: solid;
+    border-width: 0 .075rem .075rem 0;
+    content: " ";
+    display: inline-block;
+    padding: 2px;
+    position: absolute;
+    right: 1.5rem;
+    top: 1.2rem;
+    transform: rotate(45deg);
+    transition: all .2s ease-out;
 }
 
 .sidebar-item.active .sidebar-link:hover,

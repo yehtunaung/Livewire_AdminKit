@@ -31,7 +31,8 @@
 
 <body>
     <div class="wrapper">
-        <livewire:navigation.side-navigation />
+        {{-- <livewire:navigation.side-navigation /> --}}
+        @include('livewire.navigation.side-navigation')
 
         <div class="main">
             <livewire:navigation.top-navigation />
