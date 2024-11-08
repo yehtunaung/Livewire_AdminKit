@@ -3,65 +3,59 @@
 namespace App\Livewire\Admin;
 
 use App\Models\Permission;
+use Livewire\Attributes\Rule;
+use Livewire\WithPagination;
 use Livewire\Component;
 
 class PermissionComponent extends Component
 {
-    public $title;
-    public $permissions;
-    public $isOpen = false;
+    use WithPagination;
+
+    public $permission;
     public $permissionId;
+    public $isOpen = false;
 
-    protected $rules = [
-        'title' => 'required|min:3',
-
-    ];
-
-    public function mount()
-    {
-        $this->permissions = Permission::all();
-    }
+    #[Rule('required|min:3')]
+    public $title;
 
     public function create()
     {
-        $this->resetInputFields();
+        $this->reset('title', 'permissionId');
         $this->openModal();
     }
 
     public function openModal()
     {
         $this->isOpen = true;
+        $this->resetValidation();
     }
 
     public function closeModal()
     {
         $this->isOpen = false;
-    }
-
-    public function resetInputFields()
-    {
-        $this->title = '';
-        $this->permissionId = null;
-        $this->resetValidation();
+        $this->reset('title', 'permissionId');
     }
 
     public function store()
     {
         $this->validate();
+        Permission::create([
+            'title' => $this->title,
+        ]);
+        $this->dispatch('success', ['message' => 'Permission created successfully!']);
+        $this->reset(['title', 'permissionId']);
+        $this->closeModal();
+    }
 
-        if ($this->permissionId) {
-            $permission = Permission::find($this->permissionId);
-            $permission->update([
-                'title' => $this->title,
-            ]);
-            $this->dispatch('success', ['message' => 'Permission Updated successfully!']);
-        } else {
-            Permission::create([
-                'title' => $this->title,
-            ]);
-            $this->dispatch('success', ['message' => 'User created successfully!']);
-        }
-        $this->permissions = Permission::all();
+    public function update()
+    {
+        $this->validate();
+        $permission = Permission::find($this->permissionId);
+        $permission->update([
+            'title' => $this->title,
+        ]);
+
+        $this->dispatch('success', ['message' => 'Permission updated successfully!']);
         $this->closeModal();
     }
 
@@ -70,19 +64,20 @@ class PermissionComponent extends Component
         $permission = Permission::findOrFail($id);
         $this->permissionId = $id;
         $this->title = $permission->title;
+
         $this->openModal();
     }
-
     public function delete($id)
     {
-        $user = Permission::findOrFail($id);
-        $user->delete();
-        $this->permissions = Permission::all();
+        $permission = Permission::findOrFail($id);
+        $permission->delete();
         session()->flash('success', 'Permission deleted successfully.');
     }
 
     public function render()
     {
-        return view('livewire.admin.permission-component');
+        return view('livewire.admin.permission-component', [
+            'permissions' => Permission::paginate(5),
+        ]);
     }
 }

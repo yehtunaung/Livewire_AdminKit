@@ -12,7 +12,7 @@
                 <div>
                     <x-create-button title="User" function="create"></x-create-button>
                 </div>
-                
+
                 <table class="table table-bordered table-striped table-hover" id="data-table-1">
                     <thead class="text-center">
                         <th>Education Level</th>
@@ -39,42 +39,52 @@
             </div>
         </div>
 
-        <x-create-form-offcanvas submit="store" :isOpen="$isOpen">
+        <x-create-form-offcanvas submit='store' :isOpen="$isOpen">
             <x-slot name="title">
                 <h5 id="offcanvasRightLabel">{{ __('User Create') }}</h5>
             </x-slot>
 
             <x-slot name="form">
-                <div class="mb-3">
-                    <label for="name" class="form-label">Name</label>
-                    <input type="text" class="form-control" id="name" wire:model="name">
-                    @error('name')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </div>
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" wire:model="email">
-                    @error('email')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="password" wire:model="password">
-                    @error('password')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="name" class="form-label">Name</label>
+                            <x-input id="name" wire:model="name" />
+                            @error('name')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email</label>
+                            <x-input type="email" id="email" wire:model="email" />
+                            @error('email')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="password" class="form-label">Password</label>
+                            <x-input type="password" id="password" wire:model="password" />
+                            @error('password')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+
+                    </div>
+
             </x-slot>
 
             <x-slot name="actions">
-                <button type="submit" class="btn btn-success mt-4">
+                <x-success-button type="submit" class="btn btn-success mt-4">
                     {{ __('Save') }}
-                </button>
+                </x-success-button>
 
-                <button type="button" wire:click="closeModal"
-                    class="btn btn-primary mt-4">{{ __('Cancel') }}</button>
+                <x-success-button type="button" wire:click="closeModal"
+                    class="btn btn-primary mt-4">{{ __('Cancel') }}</x-success-button>
             </x-slot>
 
         </x-create-form-offcanvas>

@@ -37,10 +37,11 @@
                         @endforeach
                     </tbody>
                 </table>
+                {{ $permissions->links() }}
             </div>
         </div>
 
-        <x-create-form-offcanvas submit="store" :isOpen="$isOpen">
+        <x-create-form-offcanvas :submit="$permissionId ? 'update' : 'store'" :isOpen="$isOpen">
             <x-slot name="title">
                 <h5 id="offcanvasRightLabel">{{ __('Permission Create') }}</h5>
             </x-slot>
@@ -48,7 +49,7 @@
             <x-slot name="form">
                 <div class="mb-3">
                     <label for="title" class="form-label">Title</label>
-                    <input type="text" class="form-control" id="title" wire:model="title">
+                    <x-input id="title" wire:model="title"/>
                     @error('title')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
@@ -56,9 +57,9 @@
               </x-slot>
 
             <x-slot name="actions">
-                <button type="submit" class="btn btn-success mt-4">
+                <x-success-button type="submit" class="btn btn-success mt-4">
                     {{ __('Save') }}
-                </button>
+                </x-success-button >
 
                 <button type="button" wire:click="closeModal"
                     class="btn btn-primary mt-4">{{ __('Cancel') }}</button>
