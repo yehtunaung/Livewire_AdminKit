@@ -10,7 +10,6 @@ class RoleTableSeeder extends Seeder
 {
     public function run()
     {
-        //
         $roles = [
             [
                 'id'    => 1,
@@ -19,9 +18,12 @@ class RoleTableSeeder extends Seeder
             [
                 'id'    => 2,
                 'title' => 'Sub Admin',
-            ]
+            ],
+            [
+                'id'    => 3,
+                'title' => 'User',
+            ],
         ];
-
-        Role::insert($roles);
+    Role::insert($roles);
     }
 }
