@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\Admin\PermissionComponent;
+use App\Livewire\Admin\RoleComponent;
 use App\Livewire\Admin\UserComponent;
 use App\Livewire\Dashboard;
 use App\Livewire\Pages\Login;
@@ -15,4 +16,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.',  'middleware' => ['auth']],
     Route::get('/permission', PermissionComponent::class)->name('permission');
     Route::get('/user', UserComponent::class)->name('user');
     Route::get('/posts', PostComponent::class)->name('posts');
+    Route::get('/roles', RoleComponent::class)->name('roles');
+
 });

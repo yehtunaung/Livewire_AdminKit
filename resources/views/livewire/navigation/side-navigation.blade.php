@@ -32,7 +32,12 @@
                     <span class="align-middle">Permission</span>
                 </a>
             </li>
-
+            <li class="sidebar-item {{ Request::is('admin/roles') ? 'active' : '' }}">
+                <a class="sidebar-link" href="{{ route('admin.roles') }}">
+                    <i class="bi bi-segmented-nav align-middle"></i>
+                    <span class="align-middle">Roles</span>
+                </a>
+            </li>
             <li class="sidebar-item {{ Request::is('admin/user') ? 'active' : '' }}">
                 <a class="sidebar-link" href="{{ route('admin.user') }}">
                     <i class="bi bi-people-fill align-middle"></i>
