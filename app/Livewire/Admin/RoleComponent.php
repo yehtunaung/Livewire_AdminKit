@@ -13,7 +13,7 @@ class RoleComponent extends Component
 
     public $role;
     public $roleId;
-    public $isOpen = 0;
+    public $isOpen = false;
 
     #[Rule('required|min:3')]
     public $title;
@@ -39,21 +39,24 @@ class RoleComponent extends Component
     public function store()
     {
         $this->validate();
-
-        if($this->roleId)
-        {
-            $role = Role::find($this->roleId);
-            $role->update([
-                'title' => $this->title,
-            ]);
-            $this->dispatch('success',['message' => 'Role Updated Successfully!']);
-        }else{
-            Role::create([
-                'title' => $this->title,
-            ]);
-            $this->dispatch('success', ['message' => 'Role created successfully!']);
-        }
+        Role::create([
+            'title' => $this->title,
+        ]);
+        $this->dispatch('success', ['message' => 'Role created successfully!']);
         $this->reset(['title', 'roleId']);
+        $this->closeModal();
+    }
+
+    public function update()
+    {
+        $this->validate();
+
+        $role = Role::find($this->roleId);
+        $role->update([
+            'title' => $this->title,
+        ]);
+
+        $this->dispatch('success', ['message' => 'Role updated successfully!']);
         $this->closeModal();
     }
 

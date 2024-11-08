@@ -58,7 +58,7 @@
             </div>
         </div>
 
-        <x-create-form-offcanvas submit="store"  :isOpen="$isOpen">
+        <x-create-form-offcanvas :submit="$roleId ? 'update' : 'store'"  :isOpen="$isOpen">
             <x-slot name="title">
                 <h5 id="offcanvasRightLabel">{{ __('Role Details') }}</h5>
             </x-slot>
