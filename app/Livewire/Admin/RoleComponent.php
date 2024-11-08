@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin;
 
+use App\Models\Permission;
 use App\Models\Role;
 use Livewire\Attributes\Rule;
 use Livewire\WithPagination;
@@ -14,10 +15,14 @@ class RoleComponent extends Component
     public $role;
     public $roleId;
     public $isOpen = false;
-
+    public $permissions;
     #[Rule('required|min:3')]
     public $title;
 
+    public function mount()
+    {
+        $this->permissions = Permission::all();
+    }
     public function create()
     {
         $this->reset('title', 'roleId');
@@ -79,6 +84,7 @@ class RoleComponent extends Component
     {
         return view('livewire.admin.role-component', [
             'roles' => Role::paginate(5),
+            'permissions' => Permission::paginate(5),
         ]);
     }
 }
