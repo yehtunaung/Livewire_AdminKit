@@ -75,6 +75,43 @@
             };
         });
 
+
+        $(document).ready(function() {
+             function updateSelectAllCheckboxes() {
+                const allChecked = $('.permission-checkbox:checked').length === $('.permission-checkbox').length;
+                $('#checkAll').prop('checked', allChecked);
+
+                $('.check-all-group').each(function() {
+                    const card = $(this).closest('.card');
+                    const groupCheckboxes = card.find('.permission-checkbox');
+                    const groupChecked = groupCheckboxes.length === groupCheckboxes.filter(':checked')
+                        .length;
+                    $(this).prop('checked', groupChecked);
+                });
+            }
+
+            // Initial update of "Select All" checkboxes
+            updateSelectAllCheckboxes();
+
+            // Handle changes in permission checkboxes
+            $('.permission-checkbox').change(function() {
+                updateSelectAllCheckboxes();
+            });
+
+            // Handle changes in "Select All" checkboxes
+            $('#checkAll').change(function() {
+                const checked = this.checked;
+                $('.permission-checkbox').prop('checked', checked);
+                $('.check-all-group').prop('checked', checked);
+            });
+
+            $('.check-all-group').change(function() {
+                const groupChecked = this.checked;
+                const card = $(this).closest('.card');
+                card.find('.permission-checkbox').prop('checked', groupChecked);
+            });
+        });
+
         // Listen for the 'success' event dispatched by Livewire
         window.addEventListener('success', event => {
             toastr.success(event.detail[0].message); // Show the success message

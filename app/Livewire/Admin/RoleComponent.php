@@ -7,6 +7,7 @@ use App\Models\Role;
 use Livewire\Attributes\Rule;
 use Livewire\WithPagination;
 use Livewire\Component;
+use Illuminate\Support\Str;
 
 class RoleComponent extends Component
 {
@@ -18,10 +19,16 @@ class RoleComponent extends Component
     public $permissions;
     #[Rule('required|min:3')]
     public $title;
-
+    #[Rule('required')]
+    public $permission = [];
+    public $groupedPermissions;
     public function mount()
     {
-        $this->permissions = Permission::all();
+
+        $permissions = Permission::all();
+        $this->groupedPermissions = $permissions->groupBy(function ($permission) {
+            return Str::beforeLast($permission->title, '_');
+        })->toArray(); // Convert to array for better Livewire handling
     }
     public function create()
     {
@@ -43,7 +50,8 @@ class RoleComponent extends Component
 
     public function store()
     {
-        $this->validate();
+       $validate = $this->validate();
+       dd($validate);
         Role::create([
             'title' => $this->title,
         ]);
@@ -79,12 +87,11 @@ class RoleComponent extends Component
         $role->delete();
         session()->flash('success', 'Role deleted successfully.');
     }
-
     public function render()
     {
         return view('livewire.admin.role-component', [
             'roles' => Role::paginate(5),
-            'permissions' => Permission::paginate(5),
+            'groupedPermissions' => $this->groupedPermissions,
         ]);
     }
 }

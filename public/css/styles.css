@@ -31,8 +31,8 @@
 
 .sidebar-item a.sidebar-link {
     color: black !important;
-    /* background-color: white !important; */
-    background-color: rgb(221 221 221 / 33%) !important;
+    background-color: white !important;
+    /* background-color: rgb(221 221 221 / 33%) !important; */
     border-radius: 7px;
     text-decoration: none;
     transition: all 0.3s ease;
@@ -88,7 +88,7 @@
     top: 66px;
     right: 0;
     height: 100%; */
-    border-left: 1px solid #ddd;
+    border-left: 1px solid #f4eaea;
     background-color: white;
     z-index: 1050;
     transform: translateX(100%);
@@ -112,4 +112,24 @@
     top: 0;
     left: 0;
     z-index: 1030;
+}
+.card {
+    box-shadow: 2px 1px 1rem 6px rgb(33 36 39 / 15%);
+    margin-bottom: 24px;
+}
+
+.sidebar-brand {
+    box-shadow: 0 0 2rem 0 rgba(33, 37, 41, .1);
+    padding-bottom: 17px;
+}
+
+.wrapper {
+    align-items: stretch;
+    background: white;
+    display: flex;
+    width: 100%;
+}
+.my-container {
+    border: 1px solid #b2a1a11a !important;
+    box-shadow: 0 0 2rem 0 rgba(33, 37, 41, .1);
 }
