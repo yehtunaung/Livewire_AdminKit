@@ -1,5 +1,4 @@
 @props(['id'])
-
 <input {{ $attributes->merge([
     'type' => 'text',
     'class' => 'form-control' . ($errors->has($id) ? ' border-danger' : ''),

@@ -20,7 +20,7 @@ class UserComponent extends Component
     protected $rules = [
         'name' => 'required|min:3',
         'email' => 'required|email',
-        'password' => 'nullable|min:6',
+        'password' => 'required|min:6',
     ];
 
     public function mount()

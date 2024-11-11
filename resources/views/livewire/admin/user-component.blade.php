@@ -65,9 +65,10 @@
                         <div class="form-group">
                             <label for="password" class="form-label">Password</label>
                             <x-input type="password" id="password" wire:model="password" />
-                            @error('password')
+                             @error('password')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
+                
                         </div>
 
                     </div>
