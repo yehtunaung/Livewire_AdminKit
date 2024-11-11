@@ -8,7 +8,7 @@
             <li class="sidebar-header">
                 Pages
             </li>
-            <li class="sidebar-item {{ Request::is('index') ? 'active' : '' }} ">
+            <li class="sidebar-item {{ Request::is('/') ? 'active' : '' }} ">
                 <a class="sidebar-link" href="{{ route('dashboard') }}">
                     <i class="align-middle" data-feather="sliders"></i>
                     <span class="align-middle">Dashboard</span>
