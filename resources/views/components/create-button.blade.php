@@ -5,6 +5,8 @@
             <div class="spinner-grow spinner-grow-sm">
             </div>
         </div>
+
+        
         {{ __('Create') }} {{ $title }}
     </x-success-button>
 </div>
