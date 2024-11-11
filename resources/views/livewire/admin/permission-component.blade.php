@@ -17,7 +17,7 @@
                     <thead class="text-center">
                         <th>No</th>
                         <th>Title</th>
-                        <th>လုပ်‌ဆောင်ချက်</th>
+                        <th>Action</th>
                     </thead>
                     <tbody id="tableBody">
                         @foreach ($permissions as $permission)
@@ -26,12 +26,8 @@
                                 <td>{{ $permission->title }}</td>
                                
                                 <td>
-                                    <span wire:click="edit({{ $permission->id }})" class="btn btn-primary">
-                                        <i class="bi bi-pencil"></i> Edit
-                                    </span>
-                                    <span wire:click="delete({{ $permission->id }})" class="btn btn-danger">
-                                        <i class="bi bi-trash"></i> Delete
-                                    </span>
+                                    <x-edit-button :id="$permission->id" function="edit"></x-edit-button>
+                                    <x-delete-button :id="$permission->id" ></x-delete-button>
                                 </td>
                             </tr>
                         @endforeach
@@ -47,7 +43,7 @@
             </x-slot>
 
             <x-slot name="form">
-                <div class="mb-3">
+                <div class="col-md-4">
                     <label for="title" class="form-label">Title</label>
                     <x-input id="title" wire:model="title"/>
                     @error('title')
@@ -57,12 +53,9 @@
               </x-slot>
 
             <x-slot name="actions">
-                <x-success-button type="submit" class="btn btn-success mt-4">
-                    {{ __('Save') }}
-                </x-success-button >
-
-                <button type="button" wire:click="closeModal"
-                    class="btn btn-primary mt-4">{{ __('Cancel') }}</button>
+               
+                    <x-save-button :function="$permissionId ? 'update' : 'store'" ></x-save-button>
+                    <x-cancel-button function="closeModal" ></x-cancel-button>
             </x-slot>
 
         </x-create-form-offcanvas>
