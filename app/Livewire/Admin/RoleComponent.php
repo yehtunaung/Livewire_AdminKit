@@ -4,35 +4,30 @@ namespace App\Livewire\Admin;
 
 use App\Models\Permission;
 use App\Models\Role;
-use Livewire\Attributes\Rule;
-use Livewire\WithPagination;
 use Livewire\Component;
 use Illuminate\Support\Str;
 
 class RoleComponent extends Component
 {
-    use WithPagination;
-
     public $role;
     public $roleId;
     public $isOpen = false;
-    public $permissions;
-    #[Rule('required|min:3')]
+    public $permissions = []; // Store selected permissions
     public $title;
-    #[Rule('required')]
-    public $permission = [];
     public $groupedPermissions;
+
     public function mount()
     {
-
+        // Get all permissions and group them
         $permissions = Permission::all();
         $this->groupedPermissions = $permissions->groupBy(function ($permission) {
-            return Str::beforeLast($permission->title, '_');
-        })->toArray(); // Convert to array for better Livewire handling
+            return Str::beforeLast($permission->title, '_'); // Group by prefix
+        })->toArray();
     }
+
     public function create()
     {
-        $this->reset('title', 'roleId');
+        $this->reset('title', 'roleId', 'permissions');
         $this->openModal();
     }
 
@@ -45,29 +40,42 @@ class RoleComponent extends Component
     public function closeModal()
     {
         $this->isOpen = false;
-        $this->reset('title', 'roleId');
+        $this->reset('title', 'roleId', 'permissions');
     }
 
     public function store()
     {
-       $validate = $this->validate();
-       dd($validate);
-        Role::create([
+        $validate = $this->validate([
+            'title' => 'required',
+            'permissions' => 'required|array|min:1',
+        ]);
+
+        $role = Role::create([
             'title' => $this->title,
         ]);
+
+        $role->permissions()->sync($this->permissions);
+
         $this->dispatch('success', ['message' => 'Role created successfully!']);
-        $this->reset(['title', 'roleId']);
+        $this->reset(['title', 'roleId', 'permissions']);
         $this->closeModal();
     }
 
     public function update()
     {
-        $this->validate();
+        // Validate and update the role
+        $this->validate([
+            'title' => 'required',
+            'permissions' => 'required|array|min:1',
+        ]);
 
         $role = Role::find($this->roleId);
         $role->update([
             'title' => $this->title,
         ]);
+
+
+        $role->permissions()->sync($this->permissions);
 
         $this->dispatch('success', ['message' => 'Role updated successfully!']);
         $this->closeModal();
@@ -78,15 +86,49 @@ class RoleComponent extends Component
         $role = Role::findOrFail($id);
         $this->roleId = $id;
         $this->title = $role->title;
+        $this->permissions = $role->permissions->pluck('id')->toArray(); // Get current permissions
+
+        $this->permissions = $role->permissions->pluck('id')->toArray(); // Get current permissions
+
+
 
         $this->openModal();
     }
+
     public function delete($id)
     {
         $role = Role::findOrFail($id);
         $role->delete();
         session()->flash('success', 'Role deleted successfully.');
     }
+
+    public function toggleAllPermissions()
+    {
+        // If all permissions are already selected, deselect them
+        if (count($this->permissions) === count(Permission::all())) {
+            $this->permissions = [];
+        } else {
+            // Otherwise, select all permissions
+            $this->permissions = Permission::all()->pluck('id')->toArray();
+        }
+    }
+
+    public function toggleGroupPermission($prefix)
+    {
+        $groupPermissions = collect($this->groupedPermissions[$prefix])->pluck('id')->toArray();
+
+        // Check if all permissions in this group are selected
+        $groupSelected = array_diff($groupPermissions, $this->permissions);
+
+        if (empty($groupSelected)) {
+            // If all are selected, deselect the group
+            $this->permissions = array_diff($this->permissions, $groupPermissions);
+        } else {
+            // Otherwise, select the group
+            $this->permissions = array_merge($this->permissions, $groupPermissions);
+        }
+    }
+
     public function render()
     {
         return view('livewire.admin.role-component', [

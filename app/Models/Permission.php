@@ -10,7 +10,7 @@ class Permission extends Model
 {
     use HasFactory;
 
-    
+
     public $table = 'permissions';
 
     protected $dates = [
@@ -27,5 +27,9 @@ class Permission extends Model
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');
+    }
+
+    public function roles(){
+        return $this->belongsToMany(Role::class,'permission_role');
     }
 }
