@@ -18,7 +18,7 @@
                                     <form wire:submit='register'>
                                         <div class="mb-3">
                                             <label class="form-label">Full name</label>
-                                            <input class="form-control form-control-lg" type="text" wire:model="name"
+                                            <x-input class="form-control form-control-lg" type="text" id="name" wire:model="name"
                                                 placeholder="Enter your name" />
 
                                             @error('name')
@@ -28,7 +28,7 @@
 
                                         <div class="mb-3">
                                             <label class="form-label">Email</label>
-                                            <input class="form-control form-control-lg" type="text"
+                                            <x-input class="form-control form-control-lg" type="email" id="email"
                                                 wire:model="email" placeholder="Enter your email" />
 
                                             @error('email')
@@ -38,7 +38,7 @@
 
                                         <div class="mb-3">
                                             <label class="form-label">Password</label>
-                                            <input class="form-control form-control-lg" type="password"
+                                            <x-input class="form-control form-control-lg" type="password" id="password"
                                                 wire:model="password" placeholder="Enter password" />
 
                                             @error('password')
