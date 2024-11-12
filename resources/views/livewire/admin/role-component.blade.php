@@ -54,9 +54,7 @@
                     <input type="text" wire:model="title" class="form-control" id="title"
                         placeholder="Enter role title">
                     <span class="text-danger">
-                        @error('title')
-                            {{ $message }}
-                        @enderror
+                        @error('title') {{ $message }} @enderror
                     </span>
                 </div>
 
@@ -65,7 +63,8 @@
                     <div class="row mb-4 mt-3">
                         <div class="col-12">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="checkAll">
+                                <input class="form-check-input" type="checkbox" id="checkAll"
+                                       wire:click="toggleAllPermissions">
                                 <label class="form-check-label" for="checkAll">
                                     Select All
                                 </label>
@@ -80,7 +79,7 @@
                                     <div class="card-header card-title">
                                         <div class="form-check">
                                             <input class="form-check-input check-all-group" type="checkbox"
-                                                id="checkAll_{{ $prefix }}">
+                                                id="checkAll_{{ $prefix }}" wire:click="toggleGroupPermission('{{ $prefix }}')">
                                             <label class="form-check-label" for="checkAll_{{ $prefix }}">
                                                 {{ ucfirst($prefix) }}
                                             </label>
@@ -89,12 +88,14 @@
                                     <div class="card-body">
                                         @foreach ($permissions as $permission)
                                             <div class="custom-control custom-checkbox pt-1">
-                                                <input type="checkbox" name="permissions[]" wire:model="permission[]"
+                                                <input type="checkbox" name="permissions[]" wire:model="permissions"
                                                     class="custom-control-input permission-checkbox"
                                                     id="checkbox_{{ $permission['id'] }}"
                                                     value="{{ $permission['id'] }}">
                                                 <label class="custom-control-label"
-                                                    for="checkbox_{{ $permission['id'] }}">{{ $permission['title'] }}</label>
+                                                    for="checkbox_{{ $permission['id'] }}">
+                                                    {{ $permission['title'] }}
+                                                </label>
                                             </div>
                                         @endforeach
                                     </div>
@@ -102,19 +103,16 @@
                             </div>
                         @endforeach
                     </div>
-                    @if ($errors->has('permission'))
-                        <span class="text-danger">{{ $errors->first('permission') }}</span>
+                    @if ($errors->has('permissions'))
+                        <span class="text-danger">{{ $errors->first('permissions') }}</span>
                     @endif
                 </div>
             </x-slot>
 
             <x-slot name="actions">
                 <x-save-button :function="$roleId ? 'update' : 'store'" />
-
                 <x-cancel-button function="closeModal" />
             </x-slot>
         </x-create-form-offcanvas>
-
     </div>
-
 </section>

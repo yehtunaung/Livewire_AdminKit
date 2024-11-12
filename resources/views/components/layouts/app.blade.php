@@ -109,6 +109,7 @@
                 const groupChecked = this.checked;
                 const card = $(this).closest('.card');
                 card.find('.permission-checkbox').prop('checked', groupChecked);
+                updateSelectAllCheckboxes();
             });
         });
 
