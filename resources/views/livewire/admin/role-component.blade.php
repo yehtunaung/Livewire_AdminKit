@@ -51,15 +51,14 @@
             <x-slot name="form">
                 <div class="form-group">
                     <label for="title">Role Title</label>
-                    <input type="text" wire:model="title" class="form-control" id="title"
-                        placeholder="Enter role title">
+                    <input type="text" wire:model="title" class="form-control" id="title" placeholder="Enter role title">
                     <span class="text-danger">
                         @error('title') {{ $message }} @enderror
                     </span>
                 </div>
 
                 <div class="form-group mt-3">
-                    <label class="required" for="title">{{ __('Permissions') }}</label>
+                    <label class="required" for="permissions">{{ __('Permissions') }}</label>
                     <div class="row mb-4 mt-3">
                         <div class="col-12">
                             <div class="form-check">
@@ -78,8 +77,10 @@
                                 <div class="card">
                                     <div class="card-header card-title">
                                         <div class="form-check">
-                                            <input class="form-check-input check-all-group" type="checkbox"
-                                                id="checkAll_{{ $prefix }}" wire:click="toggleGroupPermission('{{ $prefix }}')">
+                                            <input class="form-check-input" type="checkbox"
+                                                   id="checkAll_{{ $prefix }}"
+                                                   wire:click="toggleGroupPermission('{{ $prefix }}')"
+                                                   @checked($this->isGroupSelected($prefix))>
                                             <label class="form-check-label" for="checkAll_{{ $prefix }}">
                                                 {{ ucfirst($prefix) }}
                                             </label>
@@ -88,12 +89,13 @@
                                     <div class="card-body">
                                         @foreach ($permissions as $permission)
                                             <div class="custom-control custom-checkbox pt-1">
-                                                <input type="checkbox" name="permissions[]" wire:model="permissions"
-                                                    class="custom-control-input permission-checkbox"
-                                                    id="checkbox_{{ $permission['id'] }}"
-                                                    value="{{ $permission['id'] }}">
+                                                <input type="checkbox" name="permissions[]"
+                                                       wire:model="permissions"
+                                                       class="custom-control-input permission-checkbox"
+                                                       id="checkbox_{{ $permission['id'] }}"
+                                                       value="{{ $permission['id'] }}">
                                                 <label class="custom-control-label"
-                                                    for="checkbox_{{ $permission['id'] }}">
+                                                       for="checkbox_{{ $permission['id'] }}">
                                                     {{ $permission['title'] }}
                                                 </label>
                                             </div>

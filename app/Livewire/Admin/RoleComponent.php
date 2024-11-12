@@ -18,7 +18,7 @@ class RoleComponent extends Component
 
     public function mount()
     {
-        // Get all permissions and group them
+        // Get all permissions and group them by prefix
         $permissions = Permission::all();
         $this->groupedPermissions = $permissions->groupBy(function ($permission) {
             return Str::beforeLast($permission->title, '_'); // Group by prefix
@@ -45,7 +45,7 @@ class RoleComponent extends Component
 
     public function store()
     {
-        $validate = $this->validate([
+        $this->validate([
             'title' => 'required',
             'permissions' => 'required|array|min:1',
         ]);
@@ -63,7 +63,6 @@ class RoleComponent extends Component
 
     public function update()
     {
-        // Validate and update the role
         $this->validate([
             'title' => 'required',
             'permissions' => 'required|array|min:1',
@@ -73,7 +72,6 @@ class RoleComponent extends Component
         $role->update([
             'title' => $this->title,
         ]);
-
 
         $role->permissions()->sync($this->permissions);
 
@@ -88,10 +86,6 @@ class RoleComponent extends Component
         $this->title = $role->title;
         $this->permissions = $role->permissions->pluck('id')->toArray(); // Get current permissions
 
-        $this->permissions = $role->permissions->pluck('id')->toArray(); // Get current permissions
-
-
-
         $this->openModal();
     }
 
@@ -100,6 +94,13 @@ class RoleComponent extends Component
         $role = Role::findOrFail($id);
         $role->delete();
         session()->flash('success', 'Role deleted successfully.');
+    }
+
+
+    public function isGroupSelected($prefix)
+    {
+        $groupPermissions = collect($this->groupedPermissions[$prefix])->pluck('id')->toArray();
+        return empty(array_diff($groupPermissions, $this->permissions));
     }
 
     public function toggleAllPermissions()
@@ -121,10 +122,10 @@ class RoleComponent extends Component
         $groupSelected = array_diff($groupPermissions, $this->permissions);
 
         if (empty($groupSelected)) {
-            // If all are selected, deselect the group
+            // If all are selected, deselect the entire group
             $this->permissions = array_diff($this->permissions, $groupPermissions);
         } else {
-            // Otherwise, select the group
+            // Otherwise, select all permissions in this group
             $this->permissions = array_merge($this->permissions, $groupPermissions);
         }
     }
