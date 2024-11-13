@@ -49,9 +49,9 @@
             </x-slot>
 
             <x-slot name="form">
-                <div class="form-group">
+                <div class="form-group col-md-4" >
                     <label for="title">Role Title</label>
-                    <input type="text" wire:model="title" class="form-control" id="title" placeholder="Enter role title">
+                    <x-input type="text" wire:model="title" class="form-control" id="title" placeholder="Enter role title"/>
                     <span class="text-danger">
                         @error('title') {{ $message }} @enderror
                     </span>

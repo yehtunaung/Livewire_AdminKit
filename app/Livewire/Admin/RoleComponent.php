@@ -2,13 +2,16 @@
 
 namespace App\Livewire\Admin;
 
-use App\Models\Permission;
 use App\Models\Role;
 use Livewire\Component;
+use App\Models\Permission;
 use Illuminate\Support\Str;
+use Livewire\WithPagination;
 
 class RoleComponent extends Component
 {
+    use WithPagination;
+
     public $role;
     public $roleId;
     public $isOpen = false;
