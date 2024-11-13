@@ -17,7 +17,8 @@ class UserComponent extends Component
     public $user;
     public $isOpen = false;
     public $userId;
-    public $role_ids = [];
+    // public $role_ids = [];
+    public $role_ids;
     public $roles;
 
     public function mount()
@@ -48,6 +49,7 @@ class UserComponent extends Component
             'name' => 'required',
             'email' => 'required',
             'password' => 'required',
+            'role_ids' => 'required',
 
         ]);
 
@@ -71,7 +73,7 @@ class UserComponent extends Component
             'name' => 'required',
             'email' => 'required',
             'password' => 'required',
-            'role_ids' => 'required|array',
+            'role_ids' => 'required',
         ]);
 
         $user = ModelsUser::find($this->userId);
