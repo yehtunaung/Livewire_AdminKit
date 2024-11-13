@@ -26,12 +26,14 @@
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
                                 <td>
-                                    {{ $user->roles->pluck('title')->join(', ') }}
-                                    
+                                    @foreach ($user->roles as $role)
+                                        <span class="badge bg-info rounded-pill"
+                                            style="padding: 7px;font-size:12px;">{{ $role->title }}</span>
+                                    @endforeach
                                 </td>
                                 <td>
                                     <x-edit-button :id="$user->id" function="edit"></x-edit-button>
-                                    <x-delete-button :id="$user->id" ></x-delete-button>
+                                    <x-delete-button :id="$user->id"></x-delete-button>
                                 </td>
                             </tr>
                         @endforeach
@@ -71,34 +73,67 @@
                         <div class="form-group">
                             <label for="password" class="form-label">Password</label>
                             <x-input type="password" id="password" wire:model="password" />
-                             @error('password')
+                            @error('password')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
-                
+
                         </div>
 
                     </div>
-                      <div class="col-md-4">
+                    <div class="col-md-4">
+                        <div class="form-group">
                         <label for="role_ids" class="form-label">Role</label>
-                        <select class="form-control" wire:model="role_ids" id="role_ids" required>
+                        <x-select class="form-control" wire:model="role_ids" id="role_ids" required>
                             <option value="">Select Role</option>
-                            @foreach($roles as $role)
+                            @foreach ($roles as $role)
                                 <option value="{{ $role->id }}">{{ $role->title }}</option>
                             @endforeach
-                        </select>
-                        @error('role_id') <span class="error">{{ $message }}</span> @enderror
-                    </div> 
-                    
+                        </x-select>
+                        @error('role_id')
+                            <span class="error">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    </div>
 
-            </x-slot>
 
-            <x-slot name="actions">
-              
-                <x-save-button :function="$userId ? 'update' : 'store'"></x-save-button>
-               
-                <x-cancel-button function="closeModal" ></x-cancel-button>
-            </x-slot>
+                    {{-- <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
+                        <div class="form-group">
+                            <label class="required" for="role_ids">Select Role</label>
+                            <div style="padding-bottom: 4px">
+                                <span class="btn btn-info btn-xs select-all"
+                                    style="border-radius: 0">{{ trans('select_all') }}</span>
+                                <span class="btn btn-info btn-xs deselect-all"
+                                    style="border-radius: 0">{{ trans('deselect_all') }}</span>
+                            </div>
+                            <select class="form-control select2 {{ $errors->has('roles') ? 'is-invalid' : '' }}"
+                                name="role_ids[]"  wire:model="role_ids" id="role_ids" multiple >
+                                @foreach ($roles as $role)
+                                    <option value="{{ $role->id }}"
+                                        {{ in_array($role->id, old('roles', [])) ? 'selected' : '' }}>{{ $role->title }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            <span class="role_error"></span>
+                            @if ($errors->has('roles'))
+                                <div class="invalid-feedback">
+                                    {{ $errors->first('roles') }}
+                                </div>
+                            @endif
+                            {{-- <span class="help-block">{{ trans('cruds.role.fields.roles_helper') }}</span> --}}
+                    {{-- </div>
+                    </div>  --}}
 
+                </x-slot>
+                
+
+            
+
+                <x-slot name="actions">
+
+                    <x-save-button :function="$userId ? 'update' : 'store'"></x-save-button>
+
+                    <x-cancel-button function="closeModal"></x-cancel-button>
+                </x-slot>
         </x-create-form-offcanvas>
     </div>
 </section>

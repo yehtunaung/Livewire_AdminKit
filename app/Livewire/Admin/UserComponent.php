@@ -30,8 +30,6 @@ class UserComponent extends Component
         $this->reset('name', 'email', 'password', 'role_ids', 'userId');
         $this->openModal();
     }
-
-
     public function openModal()
     {
         $this->isOpen = true;
@@ -69,7 +67,6 @@ class UserComponent extends Component
 
     public function update()
     {
-
         $this->validate([
             'name' => 'required',
             'email' => 'required',
