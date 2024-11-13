@@ -15,8 +15,9 @@
 
                 <table class="table table-bordered table-striped table-hover" id="data-table-1">
                     <thead class="text-center">
-                        <th>No</th>
-                        <th>User Name</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
                         <th>Action</th>
                     </thead>
                     <tbody id="tableBody">
@@ -25,6 +26,10 @@
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
                                 <td>
+                                    {{ $user->roles->pluck('title')->join(', ') }}
+                                    
+                                </td>
+                                <td>
                                     <x-edit-button :id="$user->id" function="edit"></x-edit-button>
                                     <x-delete-button :id="$user->id" ></x-delete-button>
                                 </td>
@@ -32,10 +37,11 @@
                         @endforeach
                     </tbody>
                 </table>
+                {{ $users->links() }}
             </div>
         </div>
 
-        <x-create-form-offcanvas submit='store' :isOpen="$isOpen">
+        <x-create-form-offcanvas :submit="$userId ? 'update' : 'store'" :isOpen="$isOpen">
             <x-slot name="title">
                 <h5 id="offcanvasRightLabel">{{ __('User Create') }}</h5>
             </x-slot>
@@ -72,13 +78,24 @@
                         </div>
 
                     </div>
+                      <div class="col-md-4">
+                        <label for="role_ids" class="form-label">Role</label>
+                        <select class="form-control" wire:model="role_ids" id="role_ids" required>
+                            <option value="">Select Role</option>
+                            @foreach($roles as $role)
+                                <option value="{{ $role->id }}">{{ $role->title }}</option>
+                            @endforeach
+                        </select>
+                        @error('role_id') <span class="error">{{ $message }}</span> @enderror
+                    </div> 
+                    
 
             </x-slot>
 
             <x-slot name="actions">
               
                 <x-save-button :function="$userId ? 'update' : 'store'"></x-save-button>
-
+               
                 <x-cancel-button function="closeModal" ></x-cancel-button>
             </x-slot>
 

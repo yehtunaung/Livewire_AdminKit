@@ -3,80 +3,88 @@
 namespace App\Livewire\Admin;
 
 use App\Models\User as ModelsUser;
+use App\Models\Role;
 use Illuminate\Foundation\Auth\User;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class UserComponent extends Component
 {
-    use WithPagination; 
+    use WithPagination;
     public $name;
     public $email;
     public $password;
-    public $users;
+    public $user;
     public $isOpen = false;
     public $userId;
-
-    protected $rules = [
-        'name' => 'required|min:3',
-        'email' => 'required|email',
-        'password' => 'required|min:6',
-    ];
+    public $role_ids = [];
+    public $roles;
 
     public function mount()
     {
-        $this->users = ModelsUser::all();
+        $this->user = ModelsUser::all();
+        $this->roles = Role::all();
     }
-
     public function create()
     {
-        $this->resetInputFields();
+        $this->reset('name', 'email', 'password', 'role_ids', 'userId');
         $this->openModal();
     }
+
 
     public function openModal()
     {
         $this->isOpen = true;
+        $this->resetValidation();
     }
 
     public function closeModal()
     {
         $this->isOpen = false;
-    }
-
-    public function resetInputFields()
-    {
-        $this->name = '';
-        $this->email = '';
-        $this->password = '';
-        $this->userId = null;
-        $this->resetValidation();
+        $this->reset('name', 'email', 'password', 'role_ids', 'userId');
     }
 
     public function store()
     {
-        $this->validate();
+        $validate = $this->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'required',
 
-        if ($this->userId) {
+        ]);
 
-            $user = ModelsUser::find($this->userId);
-            $user->update([
-                'name' => $this->name,
-                'email' => $this->email,
-                'password' => $this->password ? bcrypt($this->password) : $user->password,
-            ]);
-            $this->dispatch('success', ['message' => 'User Updated successfully!']);
-        } else {
+        $user = ModelsUser::create([
+            'name' => $this->name,
+            'email' => $this->email,
+            'password' => bcrypt($this->password),
+        ]);
 
-            ModelsUser::create([
-                'name' => $this->name,
-                'email' => $this->email,
-                'password' => bcrypt($this->password),
-            ]);
-            $this->dispatch('success', ['message' => 'User created successfully!']);
-        }
+        $user->roles()->sync($this->role_ids);
 
-        $this->users = ModelsUser::all();
+        $this->dispatch('success', ['message' => 'User created successfully!']);
+        $this->reset('name', 'email', 'password', 'role_ids', 'userId');
+        $this->closeModal();
+    }
+
+
+    public function update()
+    {
+
+        $this->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+            'role_ids' => 'required|array',
+        ]);
+
+        $user = ModelsUser::find($this->userId);
+        $user->update([
+            'name' => $this->name,
+            'email' => $this->email,
+            'password' => $this->password ? bcrypt($this->password) : $user->password,
+        ]);
+        $user->roles()->sync($this->role_ids);
+        $this->dispatch('success', ['message' => 'User updated successfully!']);
         $this->closeModal();
     }
 
@@ -86,6 +94,7 @@ class UserComponent extends Component
         $this->userId = $id;
         $this->name = $user->name;
         $this->email = $user->email;
+        $this->role_ids = $user->roles->pluck('id')->toArray();
         $this->password = '';
         $this->openModal();
     }
@@ -93,16 +102,18 @@ class UserComponent extends Component
     public function delete($id)
     {
         $user = ModelsUser::findOrFail($id);
+        $user->roles()->detach();
         $user->delete();
-        $this->users = ModelsUser::all();
+        $this->user = ModelsUser::all();
         session()->flash('success', 'User deleted successfully.');
     }
 
     public function render()
     {
-        return view('livewire.admin.user-component',[
-            'userss' =>User::paginate(5),
+        // dd($this->roles);
+        return view('livewire.admin.user-component', [
+            "users" => ModelsUser::paginate(5),
+            'roles' => $this->roles,
         ]);
-   
     }
 }
