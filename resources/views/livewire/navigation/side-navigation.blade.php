@@ -23,10 +23,13 @@
                 </a>
                 <ul class="sidebar-dropdown list-unstyled collapse {{ Request::is('admin/permission*') || Request::is('admin/roles*') || Request::is('admin/user*') ? 'show' : '' }}"
                     id="userManagement" data-bs-parent="#sidebar">
+                    @can('permission_access')
                     <li class="sidebar-item {{ Request::is('admin/permission') ? 'active' : '' }}">
                         <a href="{{ route('admin.permission') }}" class="sidebar-link"><i
                                 class="bi bi-lock-fill align-middle"></i>Permission</a>
                     </li>
+                    @endcan
+
 
                     <li class="sidebar-item {{ Request::is('admin/roles') ? 'active' : '' }}">
                         <a href="{{ route('admin.roles') }}" class="sidebar-link"><i
