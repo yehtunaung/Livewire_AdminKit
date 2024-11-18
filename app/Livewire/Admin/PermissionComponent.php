@@ -2,10 +2,12 @@
 
 namespace App\Livewire\Admin;
 
-use App\Models\Permission;
-use Livewire\Attributes\Rule;
-use Livewire\WithPagination;
 use Livewire\Component;
+use App\Models\Permission;
+use Livewire\WithPagination;
+use Livewire\Attributes\Rule;
+use Illuminate\Support\Facades\Gate;
+use Symfony\Component\HttpFoundation\Response;
 
 class PermissionComponent extends Component
 {
@@ -20,6 +22,7 @@ class PermissionComponent extends Component
 
     public function create()
     {
+        abort_if(Gate::denies("permission_create"), Response::HTTP_FORBIDDEN, "403 Forbidden");
         $this->reset('title', 'permissionId');
         $this->openModal();
     }
@@ -38,6 +41,8 @@ class PermissionComponent extends Component
 
     public function store()
     {
+        abort_if(Gate::denies("permission_create"), Response::HTTP_FORBIDDEN, "403 Forbidden");
+
         $this->validate();
         Permission::create([
             'title' => $this->title,
@@ -49,6 +54,8 @@ class PermissionComponent extends Component
 
     public function update()
     {
+        abort_if(Gate::denies("permission_edit"), Response::HTTP_FORBIDDEN, "403 Forbidden");
+
         $this->validate();
         $permission = Permission::find($this->permissionId);
         $permission->update([
@@ -61,6 +68,7 @@ class PermissionComponent extends Component
 
     public function edit($id)
     {
+        abort_if(Gate::denies("permission_edit"), Response::HTTP_FORBIDDEN, "403 Forbidden");
         $permission = Permission::findOrFail($id);
         $this->permissionId = $id;
         $this->title = $permission->title;
@@ -69,6 +77,7 @@ class PermissionComponent extends Component
     }
     public function delete($id)
     {
+        abort_if(Gate::denies("permission_delete"), Response::HTTP_FORBIDDEN, "403 Forbidden");
         $permission = Permission::findOrFail($id);
         $permission->delete();
         session()->flash('success', 'Permission deleted successfully.');
