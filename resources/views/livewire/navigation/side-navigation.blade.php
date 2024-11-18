@@ -9,7 +9,7 @@
                 Pages
             </li>
             <li class="sidebar-item {{ Request::is('/') ? 'active' : '' }} ">
-                <a class="sidebar-link" href="{{ route('dashboard') }}">
+                <a class="sidebar-link" href="{{ route('dashboard') }}" wire:navigate>
                     <i class="align-middle" data-feather="sliders"></i>
                     <span class="align-middle">Dashboard</span>
                 </a>
@@ -17,27 +17,27 @@
             <li
                 class="sidebar-item {{ Request::is('admin/permission*') || Request::is('admin/roles*') || Request::is('admin/user*') ? 'menu-open' : '' }}">
                 <a data-bs-target="#userManagement" data-bs-toggle="collapse"
-                    class="sidebar-link {{ Request::is('admin/permission*') || Request::is('admin/roles*') || Request::is('admin/user*') ? 'active' : '' }}">
+                    class="sidebar-link {{ Request::is('admin/permission*') || Request::is('admin/roles*') || Request::is('admin/user*') ? 'active' : '' }}" wire:navigate>
                     <i class="align-middle" data-feather="user-check"></i>
                     <span class="align-middle">User Management</span>
                 </a>
                 <ul class="sidebar-dropdown list-unstyled collapse {{ Request::is('admin/permission*') || Request::is('admin/roles*') || Request::is('admin/user*') ? 'show' : '' }}"
                     id="userManagement" data-bs-parent="#sidebar">
                     @can('permission_access')
-                    <li class="sidebar-item {{ Request::is('admin/permission') ? 'active' : '' }}">
-                        <a href="{{ route('admin.permission') }}" class="sidebar-link"><i
-                                class="bi bi-lock-fill align-middle"></i>Permission</a>
-                    </li>
+                        <li class="sidebar-item {{ Request::is('admin/permission') ? 'active' : '' }}">
+                            <a href="{{ route('admin.permission') }}" class="sidebar-link" wire:navigate><i
+                                    class="bi bi-lock-fill align-middle"></i>Permission</a>
+                        </li>
                     @endcan
 
 
                     <li class="sidebar-item {{ Request::is('admin/roles') ? 'active' : '' }}">
-                        <a href="{{ route('admin.roles') }}" class="sidebar-link"><i
+                        <a href="{{ route('admin.roles') }}" class="sidebar-link" wire:navigate><i
                                 class="bi bi-segmented-nav align-middle"></i>Roles</a>
                     </li>
 
                     <li class="sidebar-item {{ Request::is('admin/user') ? 'active' : '' }}">
-                        <a href="{{ route('admin.user') }}" class="sidebar-link"><i
+                        <a href="{{ route('admin.user') }}" class="sidebar-link" wire:navigate><i
                                 class="bi bi-people-fill align-middle"></i>User</a>
                     </li>
                 </ul>
@@ -45,7 +45,7 @@
 
 
             {{-- <li class="sidebar-item {{ Request::is('admin/permission') ? 'active' : '' }}" >
-                <a class="sidebar-link" href="{{ route('admin.permission') }}" >
+                <a class="sidebar-link" href="{{ route('admin.permission') }}" wire:navigate>
                     <i class="bi bi-postcard-fill align-middle"></i>
                     <span class="align-middle">Permission</span>
                 </a>
