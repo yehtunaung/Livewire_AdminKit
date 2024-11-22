@@ -50,7 +50,7 @@ class Login extends Component
         Auth::login($user);
         $this->dispatch('success', ['message' => 'Welcome Back!']);
 
-        return $this->redirect('/', navigate: true);
+        return $this->redirect('/admin', navigate: true);
     }
 
 

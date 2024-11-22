@@ -9,7 +9,7 @@ use App\Livewire\Pages\Register;
 use App\Livewire\PostComponent;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', Dashboard::class)->name('dashboard')->middleware('auth');
+Route::get('/admin', Dashboard::class)->name('dashboard')->middleware('auth');
 Route::get('/login', Login::class)->name('login');
 Route::get('/register', Register::class)->name('register');
 Route::group(['prefix' => 'admin', 'as' => 'admin.',  'middleware' => ['auth']], function () {

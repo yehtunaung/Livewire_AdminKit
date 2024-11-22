@@ -133,3 +133,30 @@
     border: 1px solid #b2a1a11a !important;
     box-shadow: 0 0 2rem 0 rgba(33, 37, 41, .1);
 }
+
+.offcanvas-header {
+    border-bottom: 1px solid #e3e3e7;
+}
+
+/* Sidebar Base Styles */
+#sidebar {
+    width: 250px;
+    transition: all 0.5s ease;
+  }
+  
+  #sidebar.collapsed {
+    width: 0;
+    overflow: hidden;
+  }
+  
+  /* Sidebar Dropdown */
+  .sidebar-dropdown {
+    display: none; /* Bootstrap collapse fallback */
+    transition: all 0.5s ease;
+
+  }
+  
+  .sidebar-dropdown.show {
+    display: block;
+  }
+  

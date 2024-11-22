@@ -47,11 +47,15 @@
 
     @livewireScripts
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+    {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
-    </script>
+    </script> --}}
 
-    {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    <script src="{{ asset('theme/plugins/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('theme/plugins/toastr/toastr.min.js') }}"></script>
+    <script src="{{ asset('theme/js/app.js') }}"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
@@ -59,74 +63,13 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
         integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous">
-    </script> --}}
-
-    <script src="{{ asset('theme/plugins/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('theme/plugins/toastr/toastr.min.js') }}"></script>
-    <script src="{{ asset('theme/js/app.js') }}"></script>
-
-
-    <script>
-        $(document).ready(function() {
-            toastr.options = {
-                "closeButton": true,
-                "progressBar": true,
-                "positionClass": "toast-top-right"
-            };
-        });
-
-
-        $(document).ready(function() {
-             function updateSelectAllCheckboxes() {
-                const allChecked = $('.permission-checkbox:checked').length === $('.permission-checkbox').length;
-                $('#checkAll').prop('checked', allChecked);
-
-                $('.check-all-group').each(function() {
-                    const card = $(this).closest('.card');
-                    const groupCheckboxes = card.find('.permission-checkbox');
-                    const groupChecked = groupCheckboxes.length === groupCheckboxes.filter(':checked')
-                        .length;
-                    $(this).prop('checked', groupChecked);
-                });
-            }
-
-            // Initial update of "Select All" checkboxes
-            updateSelectAllCheckboxes();
-
-            // Handle changes in permission checkboxes
-            $('.permission-checkbox').change(function() {
-                updateSelectAllCheckboxes();
-            });
-
-            // Handle changes in "Select All" checkboxes
-            $('#checkAll').change(function() {
-                const checked = this.checked;
-                $('.permission-checkbox').prop('checked', checked);
-                $('.check-all-group').prop('checked', checked);
-            });
-
-            $('.check-all-group').change(function() {
-                const groupChecked = this.checked;
-                const card = $(this).closest('.card');
-                card.find('.permission-checkbox').prop('checked', groupChecked);
-                updateSelectAllCheckboxes();
-            });
-        });
-
-        // Listen for the 'success' event dispatched by Livewire
-        window.addEventListener('success', event => {
-            toastr.success(event.detail[0].message); // Show the success message
-        });
-
-        window.addEventListener('warning', event => {
-            console.log(event.detail); // Check if the message is logged here
-            toastr.warning(event.detail[0].message); // Show warning message
-        });
-
-        window.addEventListener('error', event => {
-            toastr.error(event.detail[0].message); // Show error message
-        });
     </script>
+
+    <script src="{{ asset('js/custom.js') }}"></script>
+    <script src="{{ asset('icons/LivIconsEvo/js/vendor.js') }}"></script>
+    <script src="{{ asset('icons/LivIconsEvo/js/LivIconsEvo.tools.js') }}"></script>
+    <script src="{{ asset('icons/LivIconsEvo/js/LivIconsEvo.defaults.js') }}"></script>
+    <script src="{{ asset('icons/LivIconsEvo/js/LivIconsEvo.min.js') }}"></script>
 
 </body>
 

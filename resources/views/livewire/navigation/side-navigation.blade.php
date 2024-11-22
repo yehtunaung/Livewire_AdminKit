@@ -8,7 +8,7 @@
             <li class="sidebar-header">
                 Pages
             </li>
-            <li class="sidebar-item {{ Request::is('/') ? 'active' : '' }} ">
+            <li class="sidebar-item {{ request()->routeIs('dashboard') ? 'active' : '' }} ">
                 <a class="sidebar-link" href="{{ route('dashboard') }}" wire:navigate>
                     <i class="align-middle" data-feather="sliders"></i>
                     <span class="align-middle">Dashboard</span>
@@ -19,6 +19,8 @@
                 <a data-bs-target="#userManagement" data-bs-toggle="collapse"
                     class="sidebar-link {{ Request::is('admin/permission*') || Request::is('admin/roles*') || Request::is('admin/user*') ? 'active' : '' }}" wire:navigate>
                     <i class="align-middle" data-feather="user-check"></i>
+                    {{-- <i class="menu-livicon livicon-evo-holder" data-icon="diagram"></i> --}}
+
                     <span class="align-middle">User Management</span>
                 </a>
                 <ul class="sidebar-dropdown list-unstyled collapse {{ Request::is('admin/permission*') || Request::is('admin/roles*') || Request::is('admin/user*') ? 'show' : '' }}"
@@ -64,7 +66,7 @@
             </li> --}}
 
             <li class="sidebar-item {{ Request::is('admin/posts') ? 'active' : '' }}">
-                <a class="sidebar-link" href="{{ route('admin.posts') }}">
+                <a class="sidebar-link" href="{{ route('admin.posts') }}" wire:navigate>
                     <i class="bi bi-postcard-fill align-middle"></i>
                     <span class="align-middle">Post</span>
                 </a>
